@@ -1,0 +1,171 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-13 16:55+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: microninja-vnc:43
+#, sh-format
+msgid "Error storing the vnc password"
+msgstr ""
+
+#: microninja-vnc:70
+#, sh-format
+msgid "Vnc is enabled"
+msgstr ""
+
+#: microninja-vnc:70
+#, sh-format
+msgid ""
+"Microninja hostname is $HOSTNAME.local$VNC_DISPLAY\n"
+"IP is $IP(TCP port 5900)"
+msgstr ""
+
+#: microninja-vnc:77
+#, sh-format
+msgid "Error!"
+msgstr ""
+
+#: microninja-vnc:77
+#, sh-format
+msgid "Something went wrong"
+msgstr ""
+
+#: microninja-vnc:98
+#, sh-format
+msgid "VNC server has been shut down"
+msgstr ""
+
+#: microninja-vnc:113
+#, sh-format
+msgid "Set a password for VNC"
+msgstr ""
+
+#: microninja-vnc:113
+#, sh-format
+msgid "Length must be between 6 and 8 characters"
+msgstr ""
+
+#: microninja-vnc:114
+#, sh-format
+msgid "CANCEL"
+msgstr ""
+
+#: microninja-vnc:125
+#, sh-format
+msgid "You did not enter a valid password"
+msgstr ""
+
+#: microninja-vnc:125
+#, sh-format
+msgid "Try again"
+msgstr ""
+
+#: microninja-vnc:136
+#, sh-format
+msgid "Set a password for VNC (It must be between 6 and 8 characters long): "
+msgstr ""
+
+#: microninja-vnc:138
+#, sh-format
+msgid "\\nPassword is too short, try again"
+msgstr ""
+
+#: microninja-vnc:140
+#, sh-format
+msgid "\\nPassword is too long, try again"
+msgstr ""
+
+#: microninja-vnc:159
+#, sh-format
+msgid "vnc is running"
+msgstr ""
+
+#: microninja-vnc:161
+#, sh-format
+msgid "vnc is stopped"
+msgstr ""
+
+#: microninja-vnc:167
+#, sh-format
+msgid "vnc is already running"
+msgstr ""
+
+#: microninja-vnc:172
+#, sh-format
+msgid "vnc has been started"
+msgstr ""
+
+#: microninja-vnc:175
+#, sh-format
+msgid "error starting the vnc server"
+msgstr ""
+
+#: microninja-vnc:183
+#, sh-format
+msgid "VNC server is already stopped"
+msgstr ""
+
+#: microninja-vnc:190
+#, sh-format
+msgid "error stopping the vnc server"
+msgstr ""
+
+#: microninja-vnc:193
+#, sh-format
+msgid "vnc has been stopped"
+msgstr ""
+
+#: microninja-vnc:200
+#, sh-format
+msgid "VNC Server is stopped, starting..."
+msgstr ""
+
+#: microninja-vnc:204
+#, sh-format
+msgid "VNC Server is running, stopping..."
+msgstr ""
+
+#: microninja-vnc:210
+#, sh-format
+msgid "VNC switched back successfully"
+msgstr ""
+
+#: microninja-vnc:212
+#, sh-format
+msgid "Error switching the VNC server"
+msgstr ""
+
+#: microninja-vnc:227
+#, sh-format
+msgid ""
+"   Basic VNC Server handling commands. Switch will start if stopped, or "
+"terminate if running."
+msgstr ""
+
+#: microninja-vnc:228
+#, sh-format
+msgid ""
+"   If called from your Microninja Desktop you will get GUI based dialogs, or "
+"console prompts if connected headless (ssh/tty)"
+msgstr ""
+
+#: microninja-vnc:229
+#, sh-format
+msgid ""
+"   Return code will be 0 on success, any other value means something went "
+"wrong."
+msgstr ""

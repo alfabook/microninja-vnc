@@ -1,0 +1,231 @@
+#!/bin/sh
+
+# microninja-vnc
+#
+# Copyright (C) 2014, 2015 Kano Computing Ltd.
+# License: http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+#
+# A script for starting, stopping and querying the VNC server
+#
+# Copyright (C) 2016 Alfabook srl
+# License: http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+# rebadged with microninja
+. /usr/share/microninja-vnc/vncglobals
+
+. gettext.sh
+export TEXTDOMAIN="microninja-vnc"
+export TEXTDOMAINDIR=/usr/share/locale/microninja/microninja-vnc
+
+vnc_status() {
+    # returns 1 if VNC is running, 0 if stopped
+    if [ "`pidof x11vnc`" != "" ]; then
+        return 1
+    else
+        return 0
+    fi
+}
+
+vnc_start() {
+    # Prompt for a password
+    vnc_password=""
+    password_prompt vnc_password
+    if test "$vnc_password" = ""; then
+        # User cancelled the password input
+        return 1
+    fi
+
+    # Create encrypted password file
+    if [ ! -d $VNC_PATH ]; then
+        mkdir -p $VNC_PATH
+    fi
+    pwderr=`/usr/bin/x11vnc -storepasswd $vnc_password $PASS_FILE 2>&1`
+    if test $? != 0; then
+        echo "`eval_gettext "Error storing the vnc password"`"
+        echo "$pwderr"
+        return 1
+    fi
+
+    # Set correct permissions (-rw-------)
+    chmod 0600 $PASS_FILE
+
+    # Starting the VNC server now
+    if [ ${DISPLAY} ]; then
+        kdesk-hourglass-app "microninja-dialog"
+    fi
+
+    $VNC_CMDLINE > /dev/null 2>&1
+    if test $? = 0; then
+	
+        # Get Ethernet ip
+        IP=`/sbin/ifconfig eth0 | grep inet | awk '{print $2}' | cut -d':' -f2`
+
+        # Get wlan0 IP if needed
+        if [ -z $IP ]; then
+            IP=`/sbin/ifconfig wlan0 | grep inet | awk '{print $2}' | cut -d':' -f2`
+        fi        # Get hostname
+        HOSTNAME=`hostname` 
+
+        # Confirmation message
+        if [ ${DISPLAY} ]; then
+            microninja-dialog title="`eval_gettext "Vnc is enabled"`" description="`eval_gettext "Microninja hostname is \\\$HOSTNAME.local\\\$VNC_DISPLAY
+IP is \\\$IP(TCP port 5900)"`"
+
+        fi
+    else
+        # Error message
+        if [ ${DISPLAY} ]; then
+            microninja-dialog title="`eval_gettext "Error!"`" description="`eval_gettext "Something went wrong"`"
+        fi
+        return 1
+    fi
+    return 0
+}
+
+vnc_stop() {
+    if [ ${DISPLAY} ]; then
+        # Stopping and disabling the VNC server, hourglass until we have told the user
+        kdesk-hourglass-app "microninja-dialog"
+    fi
+
+    # kano-profile stat collection
+    #if [ -e /usr/bin/kano-profile-cli ]; then
+    #    kano-profile-cli increment_app_state_variable vnc starts 1
+    #fi
+
+    # Disable the server
+    pkill -9 x11vnc >/dev/null 2>&1
+    if [ ${DISPLAY} ]; then
+        microninja-dialog title="`eval_gettext "VNC server has been shut down"`"
+    fi
+
+    # Remove .vnc folder
+    rm -rf -- $VNC_PATH
+    return 0
+}
+
+password_prompt() {
+    # On screen
+    if [ ${DISPLAY} ]; then
+        while true; do
+            # Ask for password using the GUI
+            kdesk-hourglass-app "microninja-dialog"
+
+            PASSWORD=$(microninja-dialog title="`eval_gettext "Set a password for VNC"`" description="`eval_gettext "Length must be between 6 and 8 characters"`"\
+                   entry=hidden button=OK,color:green button="`eval_gettext "CANCEL"`",return_value:1,color:red\
+                   global_style=True)
+
+            # If the user doesn't enter a password, just exit
+            if [ "$PASSWORD" = "1" ]; then
+                # return empty password
+                eval "$1=''"
+                return
+            elif [ ${#PASSWORD} -ge 6 ] && [ ${#PASSWORD} -le 8 ]; then
+                break;
+            else
+                microninja-dialog title="`eval_gettext "You did not enter a valid password"`" description="`eval_gettext "Try again"`"
+            fi
+        done
+        # return empty password
+        eval "$1='$PASSWORD'"
+        echo ""
+        return
+    # On the command line
+    else
+        while true; do
+            stty -echo
+            read -p "`eval_gettext "Set a password for VNC (It must be between 6 and 8 characters long): "`" PASSWORD
+            if [ ${#PASSWORD} -lt 6 ] ; then
+                echo "`eval_gettext "\nPassword is too short, try again"`"
+            elif [ ${#PASSWORD} -gt 8 ]; then
+                echo "`eval_gettext "\nPassword is too long, try again"`"
+            else
+                break
+            fi
+        done
+        eval "$1='$PASSWORD'"
+        echo ""
+        stty echo
+        return
+    fi
+}
+
+# Main script starts here
+command=$1
+
+# Argument = status
+if test "$command" = "status"; then
+    vnc_status
+    if test $? -eq 1; then
+        echo "`eval_gettext "vnc is running"`"
+    else
+        echo "`eval_gettext "vnc is stopped"`"
+    fi
+# Argument = start
+elif test "$command" = "start"; then
+    vnc_status
+    if test $? -eq 1; then
+        echo "`eval_gettext "vnc is already running"`"
+        exit 0
+    else
+        vnc_start
+        if test $? -eq 0; then
+            echo "`eval_gettext "vnc has been started"`"
+            exit 0
+        else
+            echo "`eval_gettext "error starting the vnc server"`"
+            exit 1
+        fi
+    fi
+# Argument = stop
+elif test "$command" = "stop"; then
+    vnc_status
+    if test $? -eq 0; then
+        echo "`eval_gettext "VNC server is already stopped"`"
+        exit 0
+    fi
+
+    vnc_stop
+    vnc_status
+    if test $? -eq 1; then
+        echo "`eval_gettext "error stopping the vnc server"`"
+        exit 1
+    else
+        echo "`eval_gettext "vnc has been stopped"`"
+        exit 0
+    fi
+# Argument = switch
+elif test "$command" = "switch"; then
+    vnc_status
+    if test $? -eq 0; then
+        echo "`eval_gettext "VNC Server is stopped, starting..."`"
+        vnc_start
+        rc=$?
+    else
+        echo "`eval_gettext "VNC Server is running, stopping..."`"
+        vnc_stop
+        rc=$?
+    fi
+
+    if test $rc -eq 0; then
+        echo "`eval_gettext "VNC switched back successfully"`"
+    else
+        echo "`eval_gettext "Error switching the VNC server"`"
+    fi
+    exit $rc
+# Argument = clients
+elif test "$command" = "clients"; then
+    # Reports list of clients connected to this Raspberry over VNC
+    vnc_clients=`netstat -nt |grep 5900| awk '{print $5}'`
+    if [ ${#vnc_clients} -gt 0 ]; then
+        echo "`eval_gettext "VNC Clients currently connected:\n$vnc_clients"`"
+        exit 0
+    fi
+    exit 1
+# Argument error
+else
+    echo "microninja-vnc < [status] | [start] | [stop] | [switch] | [clients] >"
+    echo "`eval_gettext "   Basic VNC Server handling commands. Switch will start if stopped, or terminate if running."`"
+    echo "`eval_gettext "   If called from your Microninja Desktop you will get GUI based dialogs, or console prompts if connected headless (ssh/tty)"`"
+    echo "`eval_gettext "   Return code will be 0 on success, any other value means something went wrong."`"
+    exit 1
+fi

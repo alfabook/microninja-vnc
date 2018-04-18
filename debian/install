@@ -1,0 +1,7 @@
+bin/microninja-vnc usr/bin
+share/* usr/share/microninja-vnc
+
+icon/vnc.app usr/share/applications/
+icon/vnc.png usr/share/icons/microninja/66x66/apps/
+
+po/it/microninja-vnc.mo /usr/share/locale/microninja/microninja-vnc/it/LC_MESSAGES/

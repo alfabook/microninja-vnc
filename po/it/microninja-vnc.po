@@ -1,0 +1,181 @@
+# Italian translations for PACKAGE package.
+# Copyright (C) 2017 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Marco Lorrai <microninja@microninja.me>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-13 16:55+0100\n"
+"PO-Revision-Date: 2017-12-13 16:57+0100\n"
+"Last-Translator: Marco Lorrai <microninja@microninja.me>\n"
+"Language-Team: Italian\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: microninja-vnc:43
+#, sh-format
+msgid "Error storing the vnc password"
+msgstr "Errore salvando la password per vnc"
+
+#: microninja-vnc:70
+#, sh-format
+msgid "Vnc is enabled"
+msgstr "Vnc è abilitato"
+
+#: microninja-vnc:70
+#, sh-format
+msgid ""
+"Microninja hostname is $HOSTNAME.local$VNC_DISPLAY\n"
+"IP is $IP(TCP port 5900)"
+msgstr ""
+"L'hostname di Microninja è $HOSTNAME.local$VNC_DISPLAY\n"
+"L'IP è $IP(TCP port 5900)"
+
+#: microninja-vnc:77
+#, sh-format
+msgid "Error!"
+msgstr "Errore!"
+
+#: microninja-vnc:77
+#, sh-format
+msgid "Something went wrong"
+msgstr "Qualcosa è andata storta"
+
+#: microninja-vnc:98
+#, sh-format
+msgid "VNC server has been shut down"
+msgstr "Il server VNC è stato fermato"
+
+#: microninja-vnc:113
+#, sh-format
+msgid "Set a password for VNC"
+msgstr "Immetti una password per VNC"
+
+#: microninja-vnc:113
+#, sh-format
+msgid "Length must be between 6 and 8 characters"
+msgstr "La lunghezza deve essere compresa tra 6 e 8 caratteri"
+
+#: microninja-vnc:114
+#, sh-format
+msgid "CANCEL"
+msgstr "ANNULLA"
+
+#: microninja-vnc:125
+#, sh-format
+msgid "You did not enter a valid password"
+msgstr "Non hai inserito una password valida"
+
+#: microninja-vnc:125
+#, sh-format
+msgid "Try again"
+msgstr "Riprova"
+
+#: microninja-vnc:136
+#, sh-format
+msgid "Set a password for VNC (It must be between 6 and 8 characters long): "
+msgstr ""
+"Immetti una password per VNC (Deve essere compresa tra 6 e 8 caratteri): "
+
+#: microninja-vnc:138
+#, sh-format
+msgid "\\nPassword is too short, try again"
+msgstr "\\nLa password è troppo corta, riprova"
+
+#: microninja-vnc:140
+#, sh-format
+msgid "\\nPassword is too long, try again"
+msgstr "\\nLa password è troppo lunga, riprova"
+
+#: microninja-vnc:159
+#, sh-format
+msgid "vnc is running"
+msgstr "vnc è in esecuzione"
+
+#: microninja-vnc:161
+#, sh-format
+msgid "vnc is stopped"
+msgstr "vnc non è in esecuzione"
+
+#: microninja-vnc:167
+#, sh-format
+msgid "vnc is already running"
+msgstr "vnc è già in esecuzione"
+
+#: microninja-vnc:172
+#, sh-format
+msgid "vnc has been started"
+msgstr "vnc è stato lanciato"
+
+#: microninja-vnc:175
+#, sh-format
+msgid "error starting the vnc server"
+msgstr "errore lanciando il server vnc"
+
+#: microninja-vnc:183
+#, sh-format
+msgid "VNC server is already stopped"
+msgstr "Il server VNC è già stato fermato"
+
+#: microninja-vnc:190
+#, sh-format
+msgid "error stopping the vnc server"
+msgstr "errore fermando il server vnc"
+
+#: microninja-vnc:193
+#, sh-format
+msgid "vnc has been stopped"
+msgstr "vnc è stato fermato"
+
+#: microninja-vnc:200
+#, sh-format
+msgid "VNC Server is stopped, starting..."
+msgstr "Il server VNC è giù, avvio in corso..."
+
+#: microninja-vnc:204
+#, sh-format
+msgid "VNC Server is running, stopping..."
+msgstr "Il server VNC è in esecuzione, lo sto bloccando"
+
+#: microninja-vnc:210
+#, sh-format
+msgid "VNC switched back successfully"
+msgstr "VNC è tornato in piedi con successo"
+
+#: microninja-vnc:212
+#, sh-format
+msgid "Error switching the VNC server"
+msgstr "Errore avviando il server VNC"
+
+#: microninja-vnc:227
+#, sh-format
+msgid ""
+"   Basic VNC Server handling commands. Switch will start if stopped, or "
+"terminate if running."
+msgstr ""
+"   Comandi base per il server VNC. Switch lo lancia se è giù, altrimenti lo "
+"ferma se sta girando"
+
+#: microninja-vnc:228
+#, sh-format
+msgid ""
+"   If called from your Microninja Desktop you will get GUI based dialogs, or "
+"console prompts if connected headless (ssh/tty)"
+msgstr ""
+"   Se chiamato dal tuo desktop Microninja, otterrai le finestre di dialogo "
+"da GUI, altrimenti dovrai agire da console (con ssh/tty)"
+
+#: microninja-vnc:229
+#, sh-format
+msgid ""
+"   Return code will be 0 on success, any other value means something went "
+"wrong."
+msgstr ""
+"   Il codice restituito sarà 0 se l'operazione ha avuto successo, ogni altro "
+"valore indica che c'è stato un problema."

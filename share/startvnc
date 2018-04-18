@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# startvnc
+#
+# Copyright (C) 2014 Kano Computing Ltd.
+# License: http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2
+#
+#
+
+set +e
+
+. /usr/share/microninja-vnc/vncglobals
+
+xpid=`pidof x11vnc`
+
+if [ "$xpid" != "" ]; then
+    # VNC Server is running, goodbye
+    exit 1
+else
+    # start vncserver
+    if [ -f $PASS_FILE ]; then
+
+        # Kill
+	pkill -9 x11vnc
+
+	# Start the VNC in daemon mode
+	`$VNC_CMDLINE` > /dev/null 2>&1
+    fi
+fi
+
+exit 0
